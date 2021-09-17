@@ -1,2 +1,2 @@
 # phentix
-TypeScript version of Phentix and experimental repo's
+TypeScript version of Phentix and experimental branches
