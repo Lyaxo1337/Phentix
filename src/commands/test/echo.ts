@@ -24,8 +24,7 @@ const echo: Command = {
     ],
   },
   run: async (_client: Client, commandData: CommandData) => {
-    console.log(commandData.values);
-    commandData.raw?.reply(commandData.values.get("message")!.toString());
+    await commandData.reply(commandData.values.get("message")!.toString());
   },
 };
 

@@ -9,6 +9,7 @@ import { Command, CommandData } from "./command";
 
 import { IConfig } from "../../config";
 import { ISettings } from "./mongodb";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 declare module "discord.js" {
   export interface Client {
@@ -21,6 +22,7 @@ declare module "discord.js" {
       [key: string]: number;
     };
     settings: ISettings;
+    slashCommands: Collection<string, SlashCommandBuilder>;
 
     /* FUNCTIONS */
     log(type: string, msg: any, title?: string): void;

@@ -2,9 +2,11 @@ import { Collection, Intents } from "discord.js";
 import path, { join } from "path";
 
 import { CustomClient } from "./lib/client";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import { config } from "../config";
 import dotenv from "dotenv";
 import klaw from "klaw";
+import { table } from "table";
 
 dotenv.config();
 
@@ -32,7 +34,7 @@ client.commands = new Collection();
 // client.settings = new Collection();
 client.aliases = new Collection();
 client.config = config;
-
+client.slashCommands = new Collection<string, SlashCommandBuilder>();
 const run = async () => {
   // client.settings.set(
   //   "default",
@@ -82,6 +84,30 @@ const run = async () => {
     ));
     client.on(evtFile.name, event.bind(null, client));
     client.log("EVENT LOAD", `Binding ${evtFile.name}...`);
+  });
+  klaw(join(__dirname, "slash-commands")).on("data", (item) => {
+    const slshFile = path.parse(item.path);
+
+    if (!slshFile.ext || (slshFile.ext !== ".ts" && slshFile.ext !== ".js")) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { default: cmd } = require(join(
+      __dirname,
+      "slash-commands",
+      `${slshFile.name}${slshFile.ext}`
+    ));
+
+    console.log(
+      table([
+        [
+          `${"slash-commands".white} ${"/".grey} ${slshFile.name.white}.${
+            slshFile.ext.white
+          }`,
+          `${"Done.".bgGreen.black}`,
+        ],
+      ])
+    );
+    client.slashCommands.set(slshFile.name, cmd);
   });
 
   client.levelCache = {};

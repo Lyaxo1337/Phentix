@@ -9,13 +9,29 @@ import {
 
 import { CommandData } from "../types/command";
 import { ISettings } from "../types/mongodb";
+import { SettingsModel } from "../../models/GuildSettings";
 
 export default async (client: Client, interaction: Interaction): Promise<void> => {
   if (!interaction.isCommand()) return;
   if (!interaction.guild) return;
 
-  if (!client.settings) return;
+  client.settings = await SettingsModel.findOneAndUpdate(
+    { _id: interaction.guild.id },
+    {},
+    {
+      upsert: true,
+      setDefaultsOnInsert: true,
+      new: true,
+    }
+  );
   const command = interaction.commandName.toLowerCase();
+  console.log(interaction.options.data[0].options);
+  console.log(interaction.options.data.map((data) => [data.name, data.value]));
+  console.log(
+    interaction.options.data.map((data) => {
+      if (data.type === "SUB_COMMAND") interaction.options.get(data.name);
+    })
+  );
   const commandData: CommandData = {
     client,
     name: command,
@@ -24,7 +40,9 @@ export default async (client: Client, interaction: Interaction): Promise<void> =
     guild: interaction.guild,
     channel: interaction.channel!,
     values: new Collection<string, string | number | boolean | undefined>(
-      interaction.options.data.map((data) => [data.name, data.value])
+      interaction.options.data.map((data) => {
+        return [data.name, data.value ? data.value : data.name];
+      })
     ),
     raw: interaction,
     settings: <ISettings>client.settings.get(interaction.guild?.id),

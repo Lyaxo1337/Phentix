@@ -1,6 +1,8 @@
-import { SlashCommandSubcommandGroupBuilder } from "@discordjs/builders";
+import {
+  SlashCommandBuilder,
+  SlashCommandSubcommandGroupBuilder,
+} from "@discordjs/builders";
 
-const { SlashCommandBuilder } = require("@discordjs/builders");
 const system = new SlashCommandBuilder()
   .setName("system")
   .setDescription("a set of commands the bot owners can use.");

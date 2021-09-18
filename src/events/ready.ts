@@ -1,7 +1,6 @@
 import { Client } from "discord.js";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
-import SlashCommandExporter from "../SlashCollection/exporter";
 import mongoose from "mongoose";
 import { table } from "table";
 
@@ -49,8 +48,22 @@ export default async (client: Client): Promise<void> => {
   try {
     client.log("SLASH", "Started refreshing application (/) commands.");
 
+    console.log(
+      table(
+        [
+          client.slashCommands.map(
+            (value) =>
+              `${"[".grey} ${value.name.green} - ${value.description.white} ${"]".grey}`
+          ),
+        ],
+        {
+          header: { content: "Current Slash Command's", wrapWord: true },
+        }
+      )
+    );
+
     await rest.put(Routes.applicationCommands(client.user?.id || "0"), {
-      body: SlashCommandExporter,
+      body: client.slashCommands.map((value) => value.toJSON()),
     });
     client.log("SLASH", "Successfully reloaded application (/) commands.");
   } catch (error) {
