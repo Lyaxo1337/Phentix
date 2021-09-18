@@ -2,22 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa7ef317-f949-4e9d-b365-ec5cf5e10566" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/commands/test/bal.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SlashCollection/echo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/slash-commands/echo.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SlashCollection/exporter.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SlashCollection/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/slash-commands/system.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SlashCollection/test.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/GuildSettings.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/GuildSettings.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/system/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/system/system.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/test/echo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/test/echo.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/interactionCreate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/interactionCreate.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/ready.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/ready.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/client.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/types/discordjs.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/discordjs.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/mongodb.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongodb.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Merge.Settings">
     <option name="BRANCH" value="origin/master" />
@@ -81,6 +84,7 @@
       <updated>1631921965207</updated>
       <workItem from="1631921968740" duration="1457000" />
       <workItem from="1631946451695" duration="6928000" />
+      <workItem from="1631980470081" duration="6026000" />
     </task>
     <task id="LOCAL-00001" summary="Add base code &amp; Value (args the some commands need) overhaul!&#10;now all values are stored within collections allowing .get and &lt;type&gt; casting">
       <created>1631922207064</created>

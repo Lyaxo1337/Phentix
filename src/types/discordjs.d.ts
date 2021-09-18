@@ -11,6 +11,10 @@ import { IConfig } from "../../config";
 import { ISettings } from "./mongodb";
 import { SlashCommandBuilder } from "@discordjs/builders";
 
+interface EcoObj {
+  userID: Snowflake;
+  money: number;
+}
 declare module "discord.js" {
   export interface Client {
     /* VARIABLES */
@@ -28,6 +32,11 @@ declare module "discord.js" {
     log(type: string, msg: any, title?: string): void;
 
     permLevel(commandData: CommandData): number;
+
+    getEcoAccount(
+      guildID: string,
+      userAccount: string
+    ): Promise<[{ userID: string; money: number | 0 }]>;
 
     loadCommand(
       category: string,

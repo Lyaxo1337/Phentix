@@ -11,6 +11,7 @@ const SettingsSchema = new Schema(
       moderator: String,
       admin: String,
     },
+    eco: [{ userID: String, money: { type: Number, default: 0 } }],
   },
   { timestamps: true }
 );

@@ -10,6 +10,7 @@ export interface RawSettings {
     moderator: string;
     admin: string;
   };
+  eco: [{ userID: string; money: number | 0 }];
 }
 
 export interface ISettings extends RawSettings, Document {}

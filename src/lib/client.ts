@@ -1,6 +1,7 @@
 import { Client, ClientOptions, GuildMember } from "discord.js";
 import { Command, CommandData } from "../types/command";
 
+import { SettingsModel } from "../../models/GuildSettings";
 /* eslint-disable @typescript-eslint/no-var-requires */
 import colors from "colors";
 import { join } from "path";
@@ -57,6 +58,35 @@ export class CustomClient extends Client {
       }] ${msg}`
     );
   }
+
+  getEcoAccount = async (
+    guildID: string,
+    userAccount: string
+  ): Promise<[{ userID: string; money: number | 0 }]> => {
+    await SettingsModel.updateOne(
+      { _id: guildID, "eco.userID": { $ne: userAccount } },
+      {
+        $push: {
+          eco: {
+            userID: userAccount,
+            money: 0
+          }
+        }
+      }
+    );
+    const res = await SettingsModel.findOne(
+      { _id: guildID },
+      {
+        eco: {
+          $elemMatch: {
+            userID: userAccount
+          }
+        }
+      }
+    );
+
+    return res.eco;
+  };
 
   /*
     COMMAND LOAD AND UNLOAD

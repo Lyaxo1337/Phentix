@@ -13,20 +13,20 @@ const run: Command = {
       {
         valueName: "group",
         joinTogether: false,
-        index: ,
+        index: 0,
       },
       {
         valueName: "type",
         joinTogether: false,
-        index: ,
+        index: 0,
       },
       {
         valueName: "value",
         joinTogether: true,
-        index: ,
-      ,
+        index: 0,
+      },
     ],
-    aliases: ["eval",
+    aliases: ["eval"],
   },
   run: async (_client, commandData) => {
     console.log(commandData.values);
@@ -50,14 +50,14 @@ const run: Command = {
               .setTitle("E V A L")
               .setColor("PURPLE")
               .addField("INPUT", `\`\`\`js\n${inp}\`\`\``)
-              .addField("OUTPUT", `\`\`\`${e}\`\`\``,
-          ,
+              .addField("OUTPUT", `\`\`\`${e}\`\\``),
+         ],
         });
       } catch (e) {
         commandData.channel.send({
           embeds: [
-            new MessageEmbed().setTitle("Error").setDescription(`\`\`\`${e}\`\`\``,
-          ,
+            new MessageEmbed().setTitle("Error").setDescription(`\`\`\`${e}\`\`\``),
+          ],
         });
         console.log(e);
       }
