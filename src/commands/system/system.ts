@@ -18,12 +18,12 @@ const run: Command = {
       {
         valueName: "type",
         joinTogether: false,
-        index: 0,
+        index: 1,
       },
       {
         valueName: "value",
         joinTogether: true,
-        index: 0,
+        index: 2,
       },
     ],
     aliases: ["eval"],
@@ -50,8 +50,8 @@ const run: Command = {
               .setTitle("E V A L")
               .setColor("PURPLE")
               .addField("INPUT", `\`\`\`js\n${inp}\`\`\``)
-              .addField("OUTPUT", `\`\`\`${e}\`\\``),
-         ],
+              .addField("OUTPUT", `\`\`\`js\n${e}\`\`\``)
+          ],
         });
       } catch (e) {
         commandData.channel.send({
