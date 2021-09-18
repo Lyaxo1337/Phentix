@@ -16,6 +16,11 @@ const echo: Command = {
         index: 0,
         joinTogether: true,
       },
+      {
+        valueName: "message",
+        index: 0,
+        joinTogether: true,
+      },
     ],
   },
   run: async (_client: Client, commandData: CommandData) => {

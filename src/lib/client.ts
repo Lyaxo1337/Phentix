@@ -70,6 +70,36 @@ export class CustomClient extends Client {
       const req = require(join(__dirname, "..", "commands", category, commandName));
       const props: Command = req.default;
 
+      const m_NeededValues = props.config.neededValues.sort((a, b) => a.index - b.index);
+
+      if (new Set(m_NeededValues.map((v) => v.index)).size < m_NeededValues.length) {
+        this.log(
+          "WARN",
+          `\n${table([
+            [
+              `WARNING`.bgYellow.black,
+              `${commandName.white} neededValues contains duplicates.`,
+            ],
+          ])}`
+        );
+        this.log(
+          "WARN",
+          `\n${table(
+            [
+              m_NeededValues.map(
+                (value) =>
+                  `Value "${value.valueName.green}" is located at index ${
+                    value.index.toString().red
+                  }`
+              ),
+            ],
+            {
+              header: { content: "CURRENT NEEDED VALUES" },
+            }
+          )}`
+        );
+      }
+
       if (!dontLog) {
         console.log(
           table([
