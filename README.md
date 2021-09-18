@@ -7,4 +7,5 @@ TypeScript version of Phentix and experimental branches
   - [ ] Method to loop or auto generate slash commands
 - [ ] Add more commands
 - [ ] Fix Leveling
-- [ ] Bully Conrad
+- [x] Bully Conrad
+- [ ] Yeet Conrad from dani's server
