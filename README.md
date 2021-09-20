@@ -8,4 +8,4 @@ TypeScript version of Phentix and experimental branches
 - [ ] Add more commands
 - [ ] Fix Leveling
 - [x] Bully Conrad
-- [ ] Yeet Conrad from dani's server
+- [ ] Get Ram's roles removed from dani's server
