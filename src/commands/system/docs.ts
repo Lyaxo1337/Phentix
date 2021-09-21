@@ -3,7 +3,7 @@ import { Command } from "types/command"
 
 
 const docs: Command = {
-   config: {
+    config: {
         information: {
             name: "docs", 
             description: "search the discord.js docs for things", 
@@ -17,11 +17,13 @@ const docs: Command = {
                 joinTogether: true, 
                 index: 0
             }
-        ], 
-       run: async(_client, commandData) => {
-          const query = commandData.values.get("query");
-          let emb = await axios("https://djsdocs.sorta.moe/v2/embed?src=master&q="+ query!.toString())
-          await commandData.reply({embeds: [emb.data]})
-       }
+        ],
+    }, 
+    run: async(_client, commandData) => {
+        const query = commandData.values.get("query");
+        let emb = await axios("https://djsdocs.sorta.moe/v2/embed?src=master&q="+ query!.toString())
+        await commandData.reply({embeds: [emb.data]})
+    }
+
 }
 export default docs;
