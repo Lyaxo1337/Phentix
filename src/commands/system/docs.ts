@@ -23,6 +23,7 @@ const docs: Command = {
         const query = commandData.values.get("query");
         let emb = await axios("https://djsdocs.sorta.moe/v2/embed?src=master&q="+ query!.toString())
         await commandData.reply({embeds: [emb.data]})
+        
     }
 
 }

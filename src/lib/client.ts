@@ -84,10 +84,26 @@ export class CustomClient extends Client {
         }
       }
     );
-
+    //@ts-ignore
     return res.eco;
   };
-
+  findWildcard = async (
+    guildID: string, 
+    triggerToSearch: string
+  ): Promise<[{trigger: string, commandInformation: string}]> => {
+    const returnedWildcard = await SettingsModel.findOne(
+      {_id: guildID}, 
+      {
+        wildcards: {
+          $elemMatch: {
+            trigger: triggerToSearch
+          }
+        }
+      }
+    )
+    
+    return returnedWildcard.wildcards;
+  }
   /*
     COMMAND LOAD AND UNLOAD
   */

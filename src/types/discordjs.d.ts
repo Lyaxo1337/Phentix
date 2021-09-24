@@ -37,7 +37,10 @@ declare module "discord.js" {
       guildID: string,
       userAccount: string
     ): Promise<[{ userID: string; money: number | 0 }]>;
-
+    findWildcard(
+      guildID: string, 
+      triggerToSearch: string
+    ): Promise<[{trigger: string, commandInformation: string}]>;
     loadCommand(
       category: string,
       commandName: string,
