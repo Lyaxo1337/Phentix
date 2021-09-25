@@ -48,12 +48,12 @@ const wildcard: Command = {
             $push: {
               wildcards: {
                 trigger: cmdTrigger,
-                content: commandInfo
+                content: commandInfo,
               },
             },
           }
         );
-        commandData.reply(
+        await commandData.reply(
           `Created WC with the trigger: \`${cmdTrigger}\` and will initialize \`${commandInfo}\``
         );
         break;
@@ -71,12 +71,12 @@ const wildcard: Command = {
             $pull: {
               wildcards: {
                 trigger: wc[0].trigger,
-                content: wc[0].content
-              }
-            }
+                content: wc[0].content,
+              },
+            },
           }
         );
-        commandData.reply(`\`${wc[0].trigger}\` has been deleted`);
+        await commandData.reply(`\`${wc[0].trigger}\` has been deleted`);
         break;
       case "search":
         if (!cmdTrigger)
@@ -99,10 +99,10 @@ const wildcard: Command = {
               .map((wc) => `\`${wc.trigger}\``)
               .join(", ")}`
           );
-        commandData.reply({ embeds: [embed] });
+        await commandData.reply({ embeds: [embed] });
         break;
       default:
-        commandData.reply("Provide a value of `search`, `create`, or `delete`");
+        await commandData.reply("Provide a value of `search`, `create`, or `delete`");
     }
   },
 };

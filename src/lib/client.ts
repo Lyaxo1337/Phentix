@@ -69,9 +69,9 @@ export class CustomClient extends Client {
         $push: {
           eco: {
             userID: userAccount,
-            money: 0
-          }
-        }
+            money: 0,
+          },
+        },
       }
     );
     const res = await SettingsModel.findOne(
@@ -79,31 +79,31 @@ export class CustomClient extends Client {
       {
         eco: {
           $elemMatch: {
-            userID: userAccount
-          }
-        }
+            userID: userAccont,
+          },
+        },
       }
     );
-    //@ts-ignore
-    return res.eco;
+    return res!.eco;
   };
+
   findWildcard = async (
-    guildID: string, 
-    triggerToSearch: string, 
-  ): Promise<[{trigger: string; commandInformation: string}]> => {
+    guildID: string,
+    triggerToSearch: string
+  ): Promise<[{ trigger: string; content: string }]> => {
     const returnedWildcard = await SettingsModel.findOne(
-      {_id: guildID},
+      { _id: guildID },
       {
         wildcards: {
           $elemMatch: {
-            trigger: triggerToSearch
-          }
-        }
+            trigger: triggerToSearch,
+          },
+        },
       }
-    )
-    
-    return returnedWildcard.wildcards;
-  }
+    );
+    if (!returnedWildcard?.wildcards[0]) return [{ trigger: "", content: "" }];
+    return returnedWildcard!.wildcards!;
+  };
   /*
     COMMAND LOAD AND UNLOAD
   */

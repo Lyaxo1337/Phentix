@@ -11,6 +11,7 @@ import {
   User,
 } from "discord.js";
 
+import { CustomClient } from "../lib/client";
 import { ISettings } from "./mongodb";
 
 /**
@@ -67,5 +68,5 @@ export interface Command {
     }[];
   };
   run: (client: Client, commandData: CommandData) => Promise<any>;
-  init?: (client: Client) => never;
+  init?: (client: CustomClient) => never;
 }

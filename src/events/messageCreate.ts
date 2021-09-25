@@ -74,14 +74,61 @@ const notCommand = async (message: Message) => {
   if (message.content.toLowerCase().startsWith("?")) {
     const commandName = message.content.slice("?".length).trim().split(/ +/g)[0];
     if (!commandName) return;
-    console.log(commandName);
     const wildcard = await message.client.findWildcard(message.guild!.id!, commandName);
-    if (!wildcard[0]) {
+    if (!wildcard[0] || !wildcard[0].content) {
       await message.reply("I can't find this wildcard, are you sure it exists?");
       return;
     }
+    if (wildcard[0].content.startsWith("-")) {
+      const wildcardCommand = wildcard[0].content.slice(`-`.length).trim().split(/ +/g);
+      const cmd = wildcardCommand?.shift()?.toLowerCase();
+
+      let command: Command | undefined;
+      if (message.client.commands.has(<string>cmd))
+        command = message.client.commands.get(<string>cmd);
+      else
+        command = message.client.commands.get(
+          <string>message.client.aliases.get(<string>cmd)
+        );
+
+      if (!command) {
+        await message.reply({
+          embeds: [
+            new MessageEmbed().setDescription(
+              `Wildcard with the name ${wildcard[0].trigger} and the content ${wildcard[0].content} has a invalid command.`
+            ),
+          ],
+        });
+        return;
+      }
+      const commandData: CommandData = {
+        client: message.client,
+        name: command?.config.information.name || "fuck",
+        author: message.author,
+        member: message!.member!,
+        guild: message.guild!,
+        channel: message.channel,
+        values: new Collection<string, string | number | boolean | undefined>(
+          command!.config.neededValues.map((_v, i) => [
+            _v.valueName,
+            _v.joinTogether
+              ? _v.index > 0
+                ? wildcardCommand.splice(_v.index, wildcardCommand.length).join(" ")
+                : wildcardCommand.join(" ")
+              : wildcardCommand[i],
+          ])
+        ),
+        raw: message,
+        settings: message.client.settings,
+        reply: async (options: string | MessagePayload | ReplyMessageOptions) => {
+          await commandData.raw?.reply(options);
+        },
+      };
+
+      message.client.emit("commandTrigger", commandData);
+    }
     await message.reply({
-      embeds: [new MessageEmbed().setDescription(wildcard[0].commandInformation)],
+      embeds: [new MessageEmbed().setDescription(wildcard[0].content)],
     });
   }
 };
