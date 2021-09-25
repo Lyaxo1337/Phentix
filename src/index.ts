@@ -85,6 +85,7 @@ const run = async () => {
     client.on(evtFile.name, event.bind(null, client));
     client.log("EVENT LOAD", `Binding ${evtFile.name}...`);
   });
+
   klaw(join(__dirname, "slash-commands")).on("data", (item) => {
     const slshFile = path.parse(item.path);
 
@@ -100,7 +101,7 @@ const run = async () => {
     console.log(
       table([
         [
-          `${"slash-commands".white} ${"/".grey} ${slshFile.name.white}.${
+          `${"slash-commands".white} ${"/".grey} ${slshFile.name.white}${
             slshFile.ext.white
           }`,
           `${"Done.".bgGreen.black}`,

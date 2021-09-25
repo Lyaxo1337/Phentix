@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa7ef317-f949-4e9d-b365-ec5cf5e10566" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/commands/test/bal.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/slash-commands/vme.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/GuildSettings.ts" beforeDir="false" afterPath="$PROJECT_DIR$/models/GuildSettings.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/system/debugwildcards.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/system/debugwildcards.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/system/system.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/system/system.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/discordjs.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/discordjs.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/mongodb.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongodb.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/system/vme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/system/vme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/test/echo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/test/echo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/interactionCreate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/interactionCreate.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/messageCreate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/messageCreate.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +50,7 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\XapuR\OneDrive\Phentix\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="ts.external.directory.path" value="C:\Users\XapuR\OneDrive\Phentix\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -84,7 +86,11 @@
       <updated>1631921965207</updated>
       <workItem from="1631921968740" duration="1457000" />
       <workItem from="1631946451695" duration="6928000" />
-      <workItem from="1631980470081" duration="6026000" />
+      <workItem from="1631980470081" duration="6789000" />
+      <workItem from="1632041517755" duration="2377000" />
+      <workItem from="1632506574826" duration="1108000" />
+      <workItem from="1632552033832" duration="2000" />
+      <workItem from="1632585817804" duration="4152000" />
     </task>
     <task id="LOCAL-00001" summary="Add base code &amp; Value (args the some commands need) overhaul!&#10;now all values are stored within collections allowing .get and &lt;type&gt; casting">
       <created>1631922207064</created>
@@ -107,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631948209205</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add eco begin.&#10;bug not fixed.">
+      <created>1631999762791</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1631999762791</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,7 +130,8 @@
     <MESSAGE value="Add base code &amp; Value (args the some commands need) overhaul!&#10;now all values are stored within collections allowing .get and &lt;type&gt; casting" />
     <MESSAGE value="fix gitignore" />
     <MESSAGE value="add warning if a command's neededValues contains duplicates." />
-    <option name="LAST_COMMIT_MESSAGE" value="add warning if a command's neededValues contains duplicates." />
+    <MESSAGE value="add eco begin.&#10;bug not fixed." />
+    <option name="LAST_COMMIT_MESSAGE" value="add eco begin.&#10;bug not fixed." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

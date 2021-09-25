@@ -24,6 +24,8 @@ export default async (client: Client, interaction: Interaction): Promise<void> =
       new: true,
     }
   );
+  if (interaction.options.getSubcommand(false))
+    console.log("command does have a subcommand");
   const command = interaction.commandName.toLowerCase();
   console.log(interaction.options.data[0].options);
   console.log(interaction.options.data.map((data) => [data.name, data.value]));
@@ -40,9 +42,7 @@ export default async (client: Client, interaction: Interaction): Promise<void> =
     guild: interaction.guild,
     channel: interaction.channel!,
     values: new Collection<string, string | number | boolean | undefined>(
-      interaction.options.data.map((data) => {
-        return [data.name, data.value ? data.value : data.name];
-      })
+      interaction.options.data.map((data) => [data.name, data.value])
     ),
     raw: interaction,
     settings: <ISettings>client.settings.get(interaction.guild?.id),
