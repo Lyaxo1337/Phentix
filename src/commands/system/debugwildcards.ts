@@ -24,17 +24,17 @@ const wildcard: Command = {
       {
         valueName: "init",
         index: 2,
-        joinTogether: false,
+        joinTogether: true,
       },
     ],
     aliases: ["wc"],
   },
   run: async (_client: Client, commandData) => {
     const parameter = commandData.values.get("param")?.toString();
+    const cmdTrigger = commandData.values.get("trigger");
+    const commandInfo = commandData.values.get("init");
     switch (parameter) {
       case "create":
-        const cmdTrigger = commandData.values.get("trigger");
-        const commandInfo = commandData.values.get("init");
         if (!cmdTrigger) return commandData.reply("Provide a trigger for the wildcard!");
         if (!commandInfo)
           return commandData.reply("Please include what command you want to initialize!");
@@ -48,7 +48,7 @@ const wildcard: Command = {
             $push: {
               wildcards: {
                 trigger: cmdTrigger,
-                commandInformation: commandInfo,
+                content: commandInfo
               },
             },
           }
@@ -58,28 +58,46 @@ const wildcard: Command = {
         );
         break;
       case "delete":
-        Settings.deleteOne();
-
-        commandData.reply(`Deleted wildcard ${cmdTrigger!.toString()}`);
+        if (!cmdTrigger) return commandData.reply("Provide a trigger to search for!");
+        const wc = await _client.findWildcard(
+          commandData.guild.id,
+          cmdTrigger!.toString()
+        );
+        if (!wc)
+          return commandData.reply("I can't find this wildcard, are you sure it exists?");
+        await Settings.updateOne(
+          { _id: commandData.guild.id },
+          {
+            $pull: {
+              wildcards: {
+                trigger: wc[0].trigger,
+                content: wc[0].content
+              }
+            }
+          }
+        );
+        commandData.reply(`\`${wc[0].trigger}\` has been deleted`);
         break;
       case "search":
-        const input = commandData.values.get("trigger");
-        if (!input) return commandData.reply("Please include a trigger to search for!");
+        if (!cmdTrigger)
+          return commandData.reply("Please include a trigger to search for!");
         const wildcard = await _client.findWildcard(
           commandData.guild.id,
-          input!.toString()
+          cmdTrigger!.toString()
         );
-        if (wildcard[0] == null || wildcard[0] == undefined)
+        if (!wildcard)
           return commandData.reply("I can't find this wildcard, are you sure it exists?");
         await commandData.reply(
-          `**Trigger**: ${wildcard[0].trigger} \n **Initializes**: ${wildcard[0].commandInformation}`
+          `**Trigger**: ${wildcard[0].trigger} \n **Initializes**: ${wildcard[0].content}`
         );
         break;
       case "list":
         const embed = new MessageEmbed()
           .setTitle("Wildcards")
           .setDescription(
-            `${commandData.settings.wildcards.map((wc) => `\`${wc.trigger}\``).join(" ")}`
+            `${commandData.settings.wildcards
+              .map((wc) => `\`${wc.trigger}\``)
+              .join(", ")}`
           );
         commandData.reply({ embeds: [embed] });
         break;
