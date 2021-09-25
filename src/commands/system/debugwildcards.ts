@@ -25,6 +25,7 @@ const wildcard: Command = {
         valueName: "init",
         index: 2,
         joinTogether: true,
+        allowFlags: true,
       },
     ],
     aliases: ["wc"],

@@ -65,7 +65,8 @@ export interface Command {
     neededValues: {
       valueName: string;
       index: number | 0;
-      joinTogether: boolean | false;
+      joinTogether?: boolean | false;
+      allowFlags?: boolean | false;
     }[];
   };
   run: (client: Client, commandData: CommandData) => Promise<any>;

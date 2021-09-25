@@ -54,7 +54,13 @@ export default async (client: CustomClient, message: Message): Promise<void> => 
     values: new Collection<string, string | number | boolean | undefined>(
       command!.config.neededValues.map((_v, i) => [
         _v.valueName,
-        _v.joinTogether
+        _v.allowFlags
+          ? _v.joinTogether
+            ? _v.index > 0
+              ? args.splice(_v.index, args.length).join(" ")
+              : args.join(" ")
+            : args[i]
+          : _v.joinTogether
           ? _v.index > 0
             ? args.splice(_v.index, args.length).join(" ").replace(flagRegEx, "")
             : args.join(" ").replace(flagRegEx, "")
@@ -69,7 +75,7 @@ export default async (client: CustomClient, message: Message): Promise<void> => 
     flags: (message.content.match(flagRegEx) ?? []).reduce((flags, flag) => {
       const [name, arg] = flag.split("=");
 
-      return flags.set(name.replace(/--?/, ""), arg?.replace(/"/, ""));
+      return flags.set(name.replace(/--?/, ""), arg?.replace(/"*?"/g, ""));
     }, new Collection()),
   };
 
@@ -117,7 +123,13 @@ const notCommand = async (message: Message) => {
         values: new Collection<string, string | number | boolean | undefined>(
           command!.config.neededValues.map((_v, i) => [
             _v.valueName,
-            _v.joinTogether
+            _v.allowFlags
+              ? _v.joinTogether
+                ? _v.index > 0
+                  ? wildcardCommand.splice(_v.index, wildcardCommand.length).join(" ")
+                  : wildcardCommand.join(" ")
+                : wildcardCommand[i]
+              : _v.joinTogether
               ? _v.index > 0
                 ? wildcardCommand
                     .splice(_v.index, wildcardCommand.length)
@@ -136,7 +148,7 @@ const notCommand = async (message: Message) => {
           (flags, flag) => {
             const [name, arg] = flag.split("=");
 
-            return flags.set(name.replace(/--?/, ""), arg?.replace(/"/, ""));
+            return flags.set(name.replace(/--?/, ""), arg?.replace(/"*?"/g, ""));
           },
           new Collection()
         ),

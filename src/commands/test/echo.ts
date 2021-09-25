@@ -21,9 +21,9 @@ const echo: Command = {
     if (commandData?.flags?.has("embed"))
       return await commandData.reply({
         embeds: [
-          new MessageEmbed().setDescription(
-            commandData.values.get("message")!.toString()
-          ),
+          new MessageEmbed()
+            .setTitle(commandData!.flags!.get("title")!)
+            .setDescription(commandData.values.get("message")!.toString()),
         ],
       });
     return await commandData.reply(commandData.values.get("message")!.toString());
