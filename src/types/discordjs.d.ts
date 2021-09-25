@@ -40,7 +40,7 @@ declare module "discord.js" {
     findWildcard(
       guildID: string, 
       triggerToSearch: string
-    ): Promise<[{trigger: string, commandInformation: string}]>;
+    ): Promise<[{trigger: string; commandInformation: string }]>;
     loadCommand(
       category: string,
       commandName: string,

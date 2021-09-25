@@ -12,14 +12,8 @@ const SettingsSchema = new Schema(
       admin: String,
     },
     eco: [{ userID: String, money: { type: Number, default: 0 } }],
-    wildcards: [
-        {
-          trigger: String, 
-          //Init is the command to run.
-          commandInformation: String
-        }
-    ]
-  },
+    wildcards: [{trigger: String, commandInformation: String}]
+},
   { timestamps: true }
 );
 

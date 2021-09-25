@@ -89,10 +89,10 @@ export class CustomClient extends Client {
   };
   findWildcard = async (
     guildID: string, 
-    triggerToSearch: string
-  ): Promise<[{trigger: string, commandInformation: string}]> => {
+    triggerToSearch: string, 
+  ): Promise<[{trigger: string; commandInformation: string}]> => {
     const returnedWildcard = await SettingsModel.findOne(
-      {_id: guildID}, 
+      {_id: guildID},
       {
         wildcards: {
           $elemMatch: {
