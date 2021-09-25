@@ -49,6 +49,7 @@ export interface CommandData {
   values: Collection<string, string | number | boolean | undefined>;
   raw: Message | Interaction;
   settings: ISettings;
+  flags: Collection<string, string>;
   reply: (options: string | MessagePayload | ReplyMessageOptions) => Promise<void>;
 }
 

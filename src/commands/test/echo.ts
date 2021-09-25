@@ -1,6 +1,5 @@
+import { Client, MessageEmbed } from "discord.js";
 import { Command, CommandData } from "../../types/command";
-
-import { Client } from "discord.js";
 
 const echo: Command = {
   config: {
@@ -19,7 +18,15 @@ const echo: Command = {
     ],
   },
   run: async (_client: Client, commandData: CommandData) => {
-    await commandData.reply(commandData.values.get("message")!.toString());
+    if (commandData?.flags?.get("embed") && Boolean(commandData?.flags?.get("embed")))
+      return await commandData.reply({
+        embeds: [
+          new MessageEmbed().setDescription(
+            commandData.values.get("message")!.toString()
+          ),
+        ],
+      });
+    return await commandData.reply(commandData.values.get("message")!.toString());
   },
 };
 

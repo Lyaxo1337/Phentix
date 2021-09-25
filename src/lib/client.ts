@@ -79,7 +79,7 @@ export class CustomClient extends Client {
       {
         eco: {
           $elemMatch: {
-            userID: userAccont,
+            userID: userAccount,
           },
         },
       }

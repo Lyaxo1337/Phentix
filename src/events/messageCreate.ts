@@ -11,6 +11,7 @@ import { CustomClient } from "../lib/client";
 import { SettingsModel } from "../../models/GuildSettings";
 
 const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const flagRegEx = /(-\w{1}|--\w+)(=("[^"]*"|[^\s"]+))?/g;
 export default async (client: CustomClient, message: Message): Promise<void> => {
   if (message.author.bot || !message.guild) return;
   client.settings = await SettingsModel.findOneAndUpdate(
@@ -55,9 +56,9 @@ export default async (client: CustomClient, message: Message): Promise<void> => 
         _v.valueName,
         _v.joinTogether
           ? _v.index > 0
-            ? args.splice(_v.index, args.length).join(" ")
-            : args.join(" ")
-          : args[i],
+            ? args.splice(_v.index, args.length).join(" ").replace(flagRegEx, "")
+            : args.join(" ").replace(flagRegEx, "")
+          : args[i].replace(flagRegEx, ""),
       ])
     ),
     raw: message,
@@ -65,6 +66,11 @@ export default async (client: CustomClient, message: Message): Promise<void> => 
     reply: async (options: string | MessagePayload | ReplyMessageOptions) => {
       await commandData.raw?.reply(options);
     },
+    flags: (message.content.match(flagRegEx) ?? []).reduce((flags, flag) => {
+      const [name, arg] = flag.split("=");
+
+      return flags.set(name.replace(/--?/, ""), arg?.replace(/"/, ""));
+    }, new Collection()),
   };
 
   client.emit("commandTrigger", commandData);
@@ -113,8 +119,11 @@ const notCommand = async (message: Message) => {
             _v.valueName,
             _v.joinTogether
               ? _v.index > 0
-                ? wildcardCommand.splice(_v.index, wildcardCommand.length).join(" ")
-                : wildcardCommand.join(" ")
+                ? wildcardCommand
+                    .splice(_v.index, wildcardCommand.length)
+                    .join(" ")
+                    .replace(flagRegEx, "")
+                : wildcardCommand.join(" ").replace(flagRegEx, "")
               : wildcardCommand[i],
           ])
         ),
@@ -123,6 +132,14 @@ const notCommand = async (message: Message) => {
         reply: async (options: string | MessagePayload | ReplyMessageOptions) => {
           await commandData.raw?.reply(options);
         },
+        flags: (wildcardCommand.join(" ").match(flagRegEx) ?? []).reduce(
+          (flags, flag) => {
+            const [name, arg] = flag.split("=");
+
+            return flags.set(name.replace(/--?/, ""), arg?.replace(/"/, ""));
+          },
+          new Collection()
+        ),
       };
 
       message.client.emit("commandTrigger", commandData);
