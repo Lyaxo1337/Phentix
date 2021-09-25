@@ -18,7 +18,7 @@ const echo: Command = {
     ],
   },
   run: async (_client: Client, commandData: CommandData) => {
-    if (commandData?.flags?.get("embed") && Boolean(commandData?.flags?.get("embed")))
+    if (commandData?.flags?.has("embed"))
       return await commandData.reply({
         embeds: [
           new MessageEmbed().setDescription(

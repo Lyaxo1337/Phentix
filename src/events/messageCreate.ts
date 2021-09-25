@@ -58,7 +58,7 @@ export default async (client: CustomClient, message: Message): Promise<void> => 
           ? _v.index > 0
             ? args.splice(_v.index, args.length).join(" ").replace(flagRegEx, "")
             : args.join(" ").replace(flagRegEx, "")
-          : args[i].replace(flagRegEx, ""),
+          : args[i],
       ])
     ),
     raw: message,
