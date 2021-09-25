@@ -27,6 +27,9 @@ const client = new CustomClient({
       Intents.FLAGS.GUILD_INTEGRATIONS |
       Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
   ],
+  allowedMentions: {
+    repliedUser: false,
+  },
 });
 
 client.prefix = "!";
