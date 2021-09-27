@@ -8,5 +8,6 @@ TypeScript version of Phentix and experimental branches
 - [ ] Add more commands
 - [ ] Fix Leveling
 - [x] Create Wildcard System
+- [x] Create Flag System
 - [ ] Add more configuration to commands (i.e permlevel, cooldown, etc)
 - [ ] Change how permission level values are stored (instead of set names, it will be 1-10, each can store up to 5, totaling 10 permission levels, with a total of 50 roles being able to be set)
