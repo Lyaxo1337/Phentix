@@ -11,6 +11,9 @@ const SettingsSchema = new Schema(
       moderator: String,
       admin: String,
     },
+    
+    //Planned Permission Level
+    /* permLevel: [{level: Number, rolesInCount: String[]}], */
     eco: [{ userID: String, money: { type: Number, default: 0 } }],
     wildcards: [{ trigger: String, content: String }],
   },
