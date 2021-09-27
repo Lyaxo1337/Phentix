@@ -17,7 +17,7 @@ const TriggerCommand = (client: Client, dataObj: CommandData) => {
   dataObj.author.permLevel = level;
 
   if (level < client.levelCache[command!.config!.information!.permLevel!]) return;
-
+  
   command?.run(client, dataObj);
 };
 

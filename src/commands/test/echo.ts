@@ -18,14 +18,26 @@ const echo: Command = {
     ],
   },
   run: async (_client: Client, commandData: CommandData) => {
-    if (commandData?.flags?.has("embed"))
-      return await commandData.reply({
+    if (commandData?.flags?.has("embed")){
+    if(commandData?.flags?.has("del")){
+      commandData.channel.bulkDelete(1)
+
+      return await commandData.channel.send({
         embeds: [
-          new MessageEmbed()
-            .setTitle(commandData!.flags!.get("title")!)
-            .setDescription(commandData.values.get("message")!.toString()),
+          new MessageEmbed().setTitle(commandData?.flags?.get("title") ? commandData?.flags?.get("title").toString() : "").setDescription(
+            commandData.values.get("message")!.toString()
+          ),
         ],
-      });
+      })
+    }
+    return await commandData.channel.send({
+      embeds: [
+        new MessageEmbed().setTitle(commandData?.flags?.get("title") ? commandData?.flags?.get("title").toString() : "").setDescription(
+          commandData.values.get("message")!.toString()
+        ),
+      ],
+    })
+  }
     return await commandData.reply(commandData.values.get("message")!.toString());
   },
 };

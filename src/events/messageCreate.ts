@@ -83,10 +83,12 @@ export default async (client: CustomClient, message: Message): Promise<void> => 
 };
 
 const notCommand = async (message: Message) => {
-  if (message.content.toLowerCase().startsWith("?")) {
-    const commandName = message.content.slice("?".length).trim().split(/ +/g)[0];
+    const cmdMatch = message.settings.wildcards.find(wc => wc.trigger === message.content.toLowerCase())
+    if(cmdMatch) {
+    const commandName = message.content.slice(cmdMatch.trigger.length).trim().split(/ +/g);
+    const commandPermissionLevel = cmdMatch.permLevel;
     if (!commandName) return;
-    const wildcard = await message.client.findWildcard(message.guild!.id!, commandName);
+    const wildcard = await message.client.findWildcard(message.guild!.id!, cmdMatch.trigger);
     if (!wildcard[0] || !wildcard[0].content) {
       await message.reply("I can't find this wildcard, are you sure it exists?");
       return;
@@ -156,8 +158,8 @@ const notCommand = async (message: Message) => {
 
       message.client.emit("commandTrigger", commandData);
     }
-    await message.reply({
-      embeds: [new MessageEmbed().setDescription(wildcard[0].content)],
-    });
-  }
+    // await message.reply({
+    //   embeds: [new MessageEmbed().setDescription(wildcard[0].content)],
+    // });
+}
 };

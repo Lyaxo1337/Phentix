@@ -22,8 +22,13 @@ const wildcard: Command = {
         joinTogether: false,
       },
       {
+        valueName: 'permlevel', 
+        index: 2, 
+        joinTogether: true
+      },
+      {
         valueName: "init",
-        index: 2,
+        index: 3,
         joinTogether: true,
         allowFlags: true,
       },
@@ -32,11 +37,14 @@ const wildcard: Command = {
   },
   run: async (_client: Client, commandData) => {
     const parameter = commandData.values.get("param")?.toString();
-    const cmdTrigger = commandData.values.get("trigger");
+    let cmdTrigger = commandData.values.get("trigger");
+    let wcPerm = commandData.values.get("permlevel")
     const commandInfo = commandData.values.get("init");
     switch (parameter) {
       case "create":
         if (!cmdTrigger) return commandData.reply("Provide a trigger for the wildcard!");
+        if(!wcPerm) 
+          return commandData.reply("Include a permission level! Must be 0, 1, 2, or 3!")
         if (!commandInfo)
           return commandData.reply("Please include what command you want to initialize!");
         if (commandData.settings.wildcards.find((wc) => wc.trigger === cmdTrigger))
@@ -50,13 +58,16 @@ const wildcard: Command = {
               wildcards: {
                 trigger: cmdTrigger,
                 content: commandInfo,
+                permLevel: wcPerm
               },
             },
           }
         );
-        await commandData.reply(
-          `Created WC with the trigger: \`${cmdTrigger}\` and will initialize \`${commandInfo}\``
-        );
+        await commandData.reply({
+          embeds: [
+            new MessageEmbed({color: "RED", title: "Created a new Wildcard!", description:  `Generated new WC with the trigger: \`${cmdTrigger}\` which initializes \`${commandInfo}\``})
+          ]
+        });
         break;
       case "delete":
         if (!cmdTrigger) return commandData.reply("Provide a trigger to search for!");
@@ -64,8 +75,7 @@ const wildcard: Command = {
           commandData.guild.id,
           cmdTrigger!.toString()
         );
-        if (!wc)
-          return commandData.reply("I can't find this wildcard, are you sure it exists?");
+        if (!wc[0].trigger && !wc[0].content) return commandData.reply("I can't find this wildcard, are you sure it exists?");
         await Settings.updateOne(
           { _id: commandData.guild.id },
           {
@@ -73,11 +83,12 @@ const wildcard: Command = {
               wildcards: {
                 trigger: wc[0].trigger,
                 content: wc[0].content,
+                permLevel: wc[0].permLevel
               },
             },
           }
         );
-        await commandData.reply(`\`${wc[0].trigger}\` has been deleted`);
+        await commandData.reply({ embeds: [new MessageEmbed({title: "Removed New Wildcard!", color: "RED", description: `Wildcard "\`${wc[0].trigger}\`" has been deleted.`})]});
         break;
       case "search":
         if (!cmdTrigger)
@@ -86,11 +97,12 @@ const wildcard: Command = {
           commandData.guild.id,
           cmdTrigger!.toString()
         );
-        if (!wildcard)
-          return commandData.reply("I can't find this wildcard, are you sure it exists?");
-        await commandData.reply(
-          `**Trigger**: ${wildcard[0].trigger} \n **Initializes**: ${wildcard[0].content}`
-        );
+        if (!wildcard[0].trigger && !wildcard[0].content) return commandData.reply("I can't find this wildcard, are you sure it exists?");
+        await commandData.reply({
+          embeds: [
+            new MessageEmbed({title: `Showing Wildcard Info for ${cmdTrigger}`, description: `Wildcard Trigger: \`${wildcard[0].trigger}\`\nInitializes Command: \`${wildcard[0].content}\`\n Wildcard Permission Level: \`${wildcard[0].permLevel}\``, color: "RED"})
+          ]
+      });
         break;
       case "list":
         const embed = new MessageEmbed()

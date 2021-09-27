@@ -90,7 +90,7 @@ export class CustomClient extends Client {
   findWildcard = async (
     guildID: string,
     triggerToSearch: string
-  ): Promise<[{ trigger: string; content: string }]> => {
+  ): Promise<[{ trigger: string; content: string, permLevel: number}]> => {
     const returnedWildcard = await SettingsModel.findOne(
       { _id: guildID },
       {
@@ -101,7 +101,7 @@ export class CustomClient extends Client {
         },
       }
     );
-    if (!returnedWildcard?.wildcards[0]) return [{ trigger: "", content: "" }];
+    if (!returnedWildcard?.wildcards[0]) return [{ trigger: "", content: "", permLevel: 0}];
     return returnedWildcard!.wildcards!;
   };
   /*
