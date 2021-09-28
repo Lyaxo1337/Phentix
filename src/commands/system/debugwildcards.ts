@@ -115,7 +115,7 @@ const wildcard: Command = {
         await commandData.reply({ embeds: [embed] });
         break;
       default:
-        await commandData.reply("Provide a value of `search`, `create`, or `delete`");
+        await commandData.reply("Provide a value of `create`, `delete`, `search`, or `list`");
     }
   },
 };

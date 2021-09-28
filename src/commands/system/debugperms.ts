@@ -89,7 +89,7 @@ const permissions: Command = {
             );
             await commandData.reply({ embeds: [embed] });
             break;
-            break;
+            default: commandData.reply("Provide a value of `add`, `remove`, `search`, or `list`.")
         }
     }
 }
