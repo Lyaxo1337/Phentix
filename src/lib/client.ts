@@ -104,6 +104,42 @@ export class CustomClient extends Client {
     if (!returnedWildcard?.wildcards[0]) return [{ trigger: "", content: "", permLevel: 0}];
     return returnedWildcard!.wildcards!;
   };
+
+  getPermissionLevelInfo = async (
+    guildID: string, 
+    roleID: string,
+  ): Promise<[{ name: string, id: string, level: number}]> => {
+    const roleLevel = await SettingsModel.findOne(
+      { _id: guildID}, 
+      {
+        newRoles: {
+          $elemMatch: {
+            id: roleID
+          }
+        }
+      }
+    )
+    if(!roleLevel?.newRoles[0]) return [{name: "", id: "", level: 0}]
+    return roleLevel!.newRoles!;
+  }
+
+  getInfoFromIndex = async(
+    guildID: string, 
+    index: number
+  ): Promise<[{ name: string, id: string, level: number}]> => {
+    const indexReturn = await SettingsModel.findOne(
+      { _id: guildID}, 
+      {
+        newRoles: {
+          $elemMatch: {
+            level: index
+          }
+        }
+      }
+    )
+    if(!indexReturn?.newRoles[0]) return [{name: "", id: "", level: 0}]
+    return indexReturn!.newRoles!.filter(r => r.level === index);
+  }
   /*
     COMMAND LOAD AND UNLOAD
   */

@@ -42,7 +42,16 @@ declare module "discord.js" {
       guildID: string,
       triggerToSearch: string
     ): Promise<[{ trigger: string; content: string; permLevel: number}]>;
+    
+    getPermissionLevelInfo(
+      guildID: string, 
+      roleID: string,
+    ): Promise<[{ name: string; id: string; level: number}]>;
 
+  getInfoFromIndex(
+    guildID: string, 
+    index: number
+  ): Promise<[{ name: string; id: string; level: number}]>;
     loadCommand(
       category: string,
       commandName: string,

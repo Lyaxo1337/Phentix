@@ -12,7 +12,9 @@ const SettingsSchema = new Schema(
       admin: String,
     },
     eco: [{ userID: String, money: { type: Number, default: 0 } }],
-    wildcards: [{trigger: String, content: String, permLevel: String}]
+    wildcards: [{trigger: String, content: String, permLevel: Number}],
+    //will be renamed to roles whenever its finished
+    newRoles: [{ name: String, id: String, level: Number}]
 },
   { timestamps: true }
 );

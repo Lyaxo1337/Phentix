@@ -12,6 +12,7 @@ export interface RawSettings {
   };
   eco: [{ userID: string; money: number | 0 }];
   wildcards: [{ trigger: string; content: string, permLevel: number}];
+  newRoles:  [{ name: string; id: string; level: number}];
 }
 
 export interface ISettings extends RawSettings, Document {}
