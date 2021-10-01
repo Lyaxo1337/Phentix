@@ -8,4 +8,8 @@ TypeScript version of Phentix and experimental branches
 - [ ] Add more commands
 - [ ] Fix Leveling
 - [x] Create Wildcard System
+- [ ] Expand Wildcard System
+    - [] Wildcard Permission Levels
+    - [] Updating how wildcard command registration works 
+    - [] Cleanup
 - [ ] Add more configuration to commands (i.e permlevel, cooldown, etc)
