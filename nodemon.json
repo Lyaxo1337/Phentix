@@ -1,7 +1,0 @@
-{
-  "watch": [
-    "src"
-  ],
-  "ext": "ts tsx js jsx",
-  "exec": "node -r ./.tools/BabelRegister src/index.ts"
-}
